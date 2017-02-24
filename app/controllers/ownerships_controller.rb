@@ -24,7 +24,7 @@ class OwnershipsController < ApplicationController
     
     if params[:type] == "Have"
       current_user.have(@item)
-    else
+    else params[:type] == "Want"
       current_user.want(@item)
     end
     # TODO ユーザにwant or haveを設定する
@@ -35,15 +35,11 @@ class OwnershipsController < ApplicationController
   end
 
   def destroy
-    if params[:item_code]
-      @item = Item.find_or_initialize_by(item_code: params[:item_code])
-    else
-      @item = Item.find(params[:item_id])
-    end  
+    @item = Item.find(params[:item_id])
     
     if params[:type] == "Have"
       current_user.unhave(@item)
-    else
+    else params[:type] == "Want"
       current_user.unwant(@item)
     end
     
