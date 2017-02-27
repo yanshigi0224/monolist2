@@ -1,0 +1,36 @@
+<% content_for :head do %>
+    <title>Haveランキング - monolist</title>
+    <description>
+        商品を持ってる人の数のランキングを表示しています。
+    </description>
+<% end %>
+
+<div class="title">
+    <h2>Haveランキング</h2>
+</div>
+<div class="container">
+  <div class="container-inner inner-default clearfix">
+    <% i=0 %>
+    <% @items.each do |item| %>
+      <div class="item-box">
+    　　<% i+=1 %>
+    　　<h4>第<%= i %>位 </h4>
+        <div class="image">
+          <div class="img-wrap">
+            <% if item.large_image.present? %>
+              <%= image_tag(item.large_image , alt: item.title) %>
+            <% else %>
+              <%= image_tag("no-image.png" , alt: item.title) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="detail">
+          <p class="title">
+            <%= item.title %>
+          </p>
+        </div>
+        <%= render 'items/action' , item: item if logged_in? %>
+      </div>
+    <% end %>
+  </div>
+</div>
